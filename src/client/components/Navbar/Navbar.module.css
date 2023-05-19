@@ -1,0 +1,36 @@
+.navbar {
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  padding: 1rem 2rem;
+  background-color: rgb(215, 225, 228);
+  height: 7rem;
+  z-index: 99;
+}
+
+nav {
+  width: 90%;
+  padding: 0;
+  font-size: 1.5rem;
+}
+
+.navLinks {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+nav a {
+  text-decoration: none;
+  padding-right: 1rem;
+}
+
+@media screen and (min-width:858px) {
+  .navLinks {
+    flex-direction: row;
+    padding: 2rem;
+  }
+}

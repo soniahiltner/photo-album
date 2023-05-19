@@ -1,0 +1,9 @@
+.addToAlbumContainer {
+  position: relative;
+}
+
+.addToAlbum {
+  font-size: 1.2rem;
+  cursor: pointer;
+  position: relative;
+}

@@ -1,0 +1,54 @@
+.albumForm {
+  margin: 2rem;
+}
+
+.albumForm form {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputContainer label {
+  margin-bottom: 0.1rem;
+}
+
+ .inputContainer input {
+  padding: 0.2rem;
+ }
+
+.albumForm form button {
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  margin: 0 2rem;
+  border-radius: 20%;
+  cursor: pointer;
+  background-color: rgb(54, 81, 202);
+  color: wheat;
+  opacity: 0.9;
+  transition: all 0.1s ease-in-out;
+}
+
+.albumForm form button:hover {
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+ .errorMessage {
+  position: absolute;
+  top: 50px;
+  left: 45%;
+  color: red;
+  transition: all 2s ease-in-out;
+  
+
+ }
+
+ 

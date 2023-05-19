@@ -1,0 +1,13 @@
+.favStar,
+.noFav {
+  position: relative;
+  cursor: pointer;
+}
+
+.favStar {
+  color: red;
+}
+.noFav {
+  color: lightgray;
+}
+

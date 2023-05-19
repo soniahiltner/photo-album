@@ -1,0 +1,23 @@
+.gallery {
+  width: 14rem;
+  padding: 1rem;
+  
+}
+.gallery img {
+  cursor: pointer;
+  object-fit: cover;
+  transition: all 1s ease-in;
+  border-radius: 1rem;
+  padding: 0.2rem;
+}
+
+.gallery img:hover {
+  transform: scale(1.04);
+}
+
+.icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0.4rem;
+}

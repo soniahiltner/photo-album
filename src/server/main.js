@@ -113,8 +113,10 @@ app.post("/api/uploadimages", async (req, res) => {
 //Delete one image from database
 app.delete("/api/deleteimage/:id", async (req, res) => {
   const id = req.params.id;
-  const image = await MyImage.deleteOne({ _id: id });
-  image.deletedCount;
+  const image = await MyImage.findById(id)
+  const imagePublicId = image.filename
+  await MyImage.deleteOne({ _id: id });
+  await cloudinary.uploader.destroy(imagePublicId)
   res.status(200).send();
 });
 

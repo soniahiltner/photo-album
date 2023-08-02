@@ -4,38 +4,3 @@
   justify-content: center;
   flex-wrap: wrap;
 }
-
-.albumContainer {
-  width: 12rem;
-  padding: 1rem;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 0.4rem;
-}
-
-.albumImageLink {
-  margin-top: 0.1rem;
-}
-.albumContainer img {
-  padding: 0.5rem;
-  border-radius: 1rem;
-  transition: all 1s ease-in;
-}
-
-.albumContainer img:hover {
-  transform: scale(1.04);
-}
-
-.emptyAlbum {
-  border-radius: 1rem;
-  padding: 0.8rem;
-  margin-top: 0.5rem;
-  color: gray;
-  text-align: center;
-  outline: thick double gray;
-  font-size: 1.1rem;
-}

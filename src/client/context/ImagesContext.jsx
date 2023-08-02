@@ -12,6 +12,7 @@ export const ImagesProvider = ({ children }) => {
   const [page, setPage] = useState(1)
   const [favPage, setFavPage] = useState(1)
   const [count, setCount] = useState(0)
+  const [favCount, setFavCount] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
   const [favTotalPages, setFavTotalPages] = useState(0)
 
@@ -19,7 +20,7 @@ export const ImagesProvider = ({ children }) => {
   const favouritesEndpoint = '/api/images/favourites/'
   const albumImagesEndpoint = '/api/images/album/'
   const albumImageEndpoint = '/api/images/lastimage/'
-  const albumsEndpoint = '/api/albums/'
+  const albumsEndpoint = '/api/albums'
   const updateFavoriteEndpoint = '/api/images/updatefavourite/'
   const addToAlbumEndpoint = '/api/images/addtoalbum/'
   const deleteImageEndpoint = '/api/images/'
@@ -62,7 +63,7 @@ export const ImagesProvider = ({ children }) => {
   }
 
   //Get all images
-  const getImages = () => {
+  const getImages = async () => {
     fetch(`${imagesEndpoint}?page=${page}`)
       .then((res) => {
         if (!res.ok) {
@@ -81,7 +82,7 @@ export const ImagesProvider = ({ children }) => {
   }
 
   //Get favourites
-  const getFavourites = () => {
+  const getFavourites = async () => {
     fetch(`${favouritesEndpoint}?page=${favPage}`)
       .then((res) => {
         if (!res.ok) {
@@ -99,7 +100,7 @@ export const ImagesProvider = ({ children }) => {
   }
 
   //Get albums
-  const getAlbums = () => {
+  const getAlbums = async () => {
     fetch(albumsEndpoint)
       .then((res) => {
         if (!res.ok) {
@@ -117,15 +118,21 @@ export const ImagesProvider = ({ children }) => {
     getImages()
     getAlbums()
     getFavourites()
+  }, [])
+
+  useEffect(() => {
+    getImages()
+    getAlbums()
+    getFavourites()
   }, [page, favPage])
 
   //Remove image from album
   const removeImgFromAlbum = async (image, album) => {
-    const imageToChange = images.find((item) => item._id === image._id)
-    const newAlbums = imageToChange.albums.filter((el) => el !== album.name)
+    
+    const newAlbums = image.albums.filter((el) => el !== album.name)
 
     const changedImage = {
-      ...imageToChange,
+      ...image,
       albums: newAlbums
     }
 
@@ -145,20 +152,22 @@ export const ImagesProvider = ({ children }) => {
           return
         }
         res.json().then((data) => {
-          setImages(images.map((img) => (img.id !== image._id ? img : data)))
+          console.log(data)
+          setImages(prev => [...prev, data.image])
           getImages()
         })
       })
       .catch((err) => console.log('Error removing image from album', err))
   }
 
-  //Toggle favourite in the gallery
+  //Toggle favourite
   const toggleFavourite = async (image) => {
-    const imageToChange = images.find((item) => item._id === image._id)
+    
     const changedImage = {
-      ...imageToChange,
-      favourite: !imageToChange.favourite
+      ...image,
+      favourite: !image?.favourite
     }
+    const id = image._id
 
     const fetchOptions = {
       method: 'PUT',
@@ -166,18 +175,21 @@ export const ImagesProvider = ({ children }) => {
       body: JSON.stringify(changedImage)
     }
 
-    await fetch(`${updateFavoriteEndpoint}${image._id}`, fetchOptions)
+    await fetch(`${updateFavoriteEndpoint}${id}`, fetchOptions)
       .then((res) => {
         if (!res.ok) {
           console.log(`Error with Status Code: ${res.status}`)
           return
         }
-        res.json().then((data) => {
-          setImages(images.map((img) => (img.id !== image._id ? img : data)))
-          getImages()
+        res.json().then(data => {
+          //setImages(data.images)
+          setFavCount(data.favCount)
         })
+        getImages()
+        getFavourites()
       })
       .catch((err) => console.log('Error changing favourite state', err))
+    getImages()
   }
 
   //Remove image  from database
@@ -222,6 +234,7 @@ export const ImagesProvider = ({ children }) => {
         deleteAlbum,
         albumImagesEndpoint,
         albumImageEndpoint,
+        addToAlbumEndpoint,
         page,
         favPage,
         count,

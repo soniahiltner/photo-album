@@ -79,7 +79,7 @@ const Gallery = ({ pictures, album }) => {
           ))}
         {pictures !== images &&
           pictures !== favourites &&
-          pictures.map((image, index) => (
+          pictures?.map((image, index) => (
             <AlbumImage
               key={image._id}
               image={image}

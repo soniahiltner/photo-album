@@ -11,6 +11,7 @@ router.get('/', async (req, res) => {
 
 //Create album
 router.post('/', async (req, res) => {
+  console.log(req.body)
   if (req.body.length === 0) {
     res.statusCode(400).send('name should not be empty')
   }

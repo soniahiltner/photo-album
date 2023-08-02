@@ -62,7 +62,7 @@ const UploadForm = () => {
     <div className={styles.uploadform}>
       <form
         ref={form}
-        action="/api/uploadimages"
+        action="/api/images"
         method="POST"
         encType="multipart/form-data"
       >

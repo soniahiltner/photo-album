@@ -136,12 +136,16 @@ router.put('/updatefavourite/:id', async (req, res) => {
   const id = req.params.id
   const { favourite } = req.body
 
-  const image = await MyImage.findOneAndUpdate(
+  await MyImage.findOneAndUpdate(
     { _id: id },
-    { favourite: favourite }
+    { favourite: favourite },
+    { new: true }
   )
+  const images = await MyImage.find()
+  const favCount = await MyImage.find({ favourite: true }).countDocuments()
 
-  res.json(image)
+  res.status(200).json({images, favCount})
+  
 })
 
 // Update image-albums
@@ -154,7 +158,7 @@ router.put('/addtoalbum/:id', async (req, res) => {
     { $addToSet: { albums: req.body.albums } },
     { new: true }
   )
-
+   
   res.json(image)
 })
 

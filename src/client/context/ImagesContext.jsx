@@ -152,7 +152,6 @@ export const ImagesProvider = ({ children }) => {
           return
         }
         res.json().then((data) => {
-          console.log(data)
           setImages(prev => [...prev, data.image])
           getImages()
         })
@@ -182,7 +181,6 @@ export const ImagesProvider = ({ children }) => {
           return
         }
         res.json().then(data => {
-          //setImages(data.images)
           setFavCount(data.favCount)
         })
         getImages()

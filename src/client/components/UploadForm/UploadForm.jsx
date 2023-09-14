@@ -103,7 +103,7 @@ const UploadForm = () => {
           </ul>
         </div>
         <div className={styles.submit}>
-          <button type="submit" onClick={handleSubmit}>
+          <button className={styles.uploadBtn} type="submit" onClick={handleSubmit}>
             Upload
           </button>
         </div>

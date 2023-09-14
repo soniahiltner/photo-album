@@ -4,6 +4,14 @@ import { MyImage } from '../model/myImageSchema.js'
 import multer from 'multer'
 import { v2 as cloudinary } from 'cloudinary'
 import { CloudinaryStorage } from 'multer-storage-cloudinary'
+
+// Cloudinary configuration
+cloudinary.config({
+  cloud_name: process.env.VITE_CLOUD_NAME,
+  api_key: process.env.VITE_API_KEY,
+  api_secret: process.env.VITE_API_SECRET,
+  secure: true
+})
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
@@ -19,7 +27,7 @@ const upload = multer({ storage: storage })
 //Get all images
 router.get('/', async (req, res) => {
   const page = +req.query.page || 1
-  const limit = 5
+  const limit = 10
   const skip = (page - 1) * limit
   try {
     const count = await MyImage.countDocuments()
@@ -43,7 +51,7 @@ router.get('/', async (req, res) => {
 //Get favourites
 router.get('/favourites', async (req, res) => {
   const page = +req.query.page || 1
-  const limit = 3
+  const limit = 10
   const skip = (page - 1) * limit
   try {
     const count = await MyImage.find({ favourite: true }).countDocuments()
@@ -73,7 +81,7 @@ router.get('/album/:name', async (req, res) => {
     const images = await MyImage.find({ albums: { $in: [albumName] } })
       .sort({ _id: -1 })
       .exec()
-    //console.log(images)
+    
     res.json(images)
   } catch (error) {
     console.log(error)
@@ -89,7 +97,7 @@ router.get('/lastimage/:name', async (req, res) => {
       .sort({ _id: -1 })
       .limit(1)
       .exec()
-    //console.log(image)
+    
     res.json(image)
   } catch (error) {
     console.log(error)
@@ -102,10 +110,11 @@ const uploadFiles = upload.array('file', maxFiles)
 router.post('/', async (req, res) => {
   uploadFiles(req, res, async (err) => {
     if (err instanceof multer.MulterError) {
-      res.statusCode(400).send(err.message)
+      console.log('MulterError', err)
     } else if (err) {
-      res.statusCode(400).send(err.message)
+      console.log('An unknown error occurred when uploading', err)
     } else {
+      
       const files = req.files
 
       files.forEach(async (file) => {

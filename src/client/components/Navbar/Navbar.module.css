@@ -27,12 +27,8 @@ nav a {
   padding-right: 1rem;
   padding-bottom: 0.2rem;
 }
-
-@media screen and (min-width: 858px) {
-  .navLinks {
-    flex-direction: row;
-    padding: 2rem;
-  }
+nav a:hover {
+  text-shadow: 1px 1px 2px black;
 }
 
 @media screen and (min-width: 357px) {
@@ -51,4 +47,18 @@ nav a {
     font-size: 1.5rem;
     width: 90%;
   }
+}
+
+@media screen and (min-width: 858px) {
+  .navLinks {
+    flex-direction: row;
+    padding: 2rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .navbar {
+    padding: 0 10rem;
+  }
+  
 }

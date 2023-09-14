@@ -31,9 +31,6 @@ const storage = new CloudinaryStorage({
   }
 })
 
-//Multer
-const upload = multer({ storage: storage })
-
 //MongoDB
 // eslint-disable-next-line no-undef
 const uri = process.env.VITE_MONGO_URI
@@ -55,6 +52,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/api/images', imagesRouter)
 app.use('/api/albums', albumsRouter)
 
-ViteExpress.listen(app, 3000, () =>
-  console.log('Server is listening on port 3000...')
+ViteExpress.listen(app, PORT, () =>
+  console.log(`Server is listening on port ${PORT}...`)
 )

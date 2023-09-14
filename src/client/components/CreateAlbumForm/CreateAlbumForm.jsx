@@ -6,7 +6,6 @@ const CreateAlbumForm = () => {
   const [albumName, setAlbumName] = useState('')
   const [error, setError] = useState('')
   const { albums, setAlbums } = useContext(ImagesContext)
-  const url = 'http://localhost:3000/api/albums'
 
   const handleSubmit = (e) => {
     e.preventDefault()
